@@ -59,6 +59,9 @@ module RuboCop
           str.each_byte.inject(5381) do |hash, b|
             ((hash << 5) + hash) ^ b
           end & 0xFFFFFFFF
+        rescue NoMethodError
+          # Handles "NoMethodError (undefined method `each_byte' for nil:NilClass)"
+          ""
         end
       end
     end
